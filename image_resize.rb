@@ -64,9 +64,9 @@ if !Dir.exist?(options[:destination])
 end
 
 Dir.foreach(options[:source]) do |file_name|
-    next if file_name == '.' || file_name == '..'
+    next if file_name == '.' || file_name == '..' || file_name == '.DS_Store'
     source_file_path = "#{options[:source]}/#{file_name.gsub(/\s/, '\\ ')}"
-    dest_file_path = "#{options[:destination]}/#{file_name.gsub(/\s/, '\\ ').gsub(/.png/, '.jpg')}"
+    dest_file_path = "#{options[:destination]}/#{file_name.gsub(/\s/, '\\ ').gsub(/.png/i, '.jpg')}"
 
     cmd = "magick #{source_file_path} -resize #{options[:target_size]}x#{options[:target_size]} -sampling-factor #{SAMPLING_FACTOR} -strip -quality #{options[:quality]} -interlace #{INTERLACE} -colorspace #{COLOR_SPACE} #{dest_file_path}"
     p cmd
